@@ -1,97 +1,132 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { View } from "../View/View";
 // import { useForm } from 'react-hook-form'
 import './event.css';
 // import './events.css';
 
-const Create = () => {
-    // const { register, handleSubmit, errors, setValue, watch, trigger } = useForm({
-    //     mode: "onChange",
-    //     reValidateMode: 'onChange'
-    //   });
-    const [state, setState] = useState({
-        events: [],
-        event: {
-            name: "",
-            // phoneNo: "",
-            address: "",
-            startDate: null,
-            startTime: null,
-            // organizerName: "",
-            // organizerPhoneNumber: ""
-        }
-    })
 
-    const handleOnChange = (e) => {
-        setState({ event: e.target.value })
+const getDatafromLS = () => {
+    const data = localStorage.getItem('event');
+    if (data) {
+        return JSON.parse(data);
     }
+    else {
+        return []
+    }
+}
+
+const Create = () => {
+    const [event, setEvent] = useState(getDatafromLS())
+
+    const [name, setName] = useState("")
+    const [address, setAddress] = useState("")
+    const [startTime, setStartTime] = useState()
+    const [startDate, setStartDate] = useState()
+
+    // form submit event
+    const addEvent = (e) => {
+        e.preventDefault();
+        let newEvent = {
+            name,
+            address,
+            startDate,
+            startTime,
+        };
+        setEvent([...event, newEvent]);
+        setName('');
+        setAddress('');
+        setStartDate('');
+        setStartTime('');
+    };
+
+    useEffect(() => {
+        const json = JSON.stringify(event);
+        localStorage.setItem("event", json);
+    }, [event]);
 
     return (
         <div className="page-wrapper bg-gra-03 p-t-45 p-b-50">
-            <div className="wrapper wrapper--w790">
-                <div className="card card-5">
-                    <div className="card-heading">
-                        <h2 className="title">Event Registration Form</h2>
-                    </div>
-                    <div className="card-body">
-                        <form method="POST">
-                            <div className="form-row m-b-55">
-                                <div className="name">Name of Event</div>
-                                <div className="value">
-                                    <div className="input-group">
-                                        <input className="input--style-5" type="text" name="name" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="form-row">
-                                <div className="name">Address</div>
-                                <div className="value">
-                                    <div className="input-group">
-                                        <input className="input--style-5" type="text" name="address" />
-                                    </div>
-                                </div>
-                            </div>
+            <div className="container">
+                <div class="row">
+                    <h2 className="title">Event Registration Form</h2>
+                    <div class="col-4 align-self-center">
+                        <div className="card mr-4">
 
-                            <div className="form-row">
-                                <div className="name" htmlFor="p_startDate">Start Date</div>
-                                <div className="value">
-                                    <div className="input-group">
+                            <div className="card-body">
+                                <form >
+
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Name of Event</label>
+                                        <input className="input--style-5"
+                                            type="text"
+                                            name="name"
+                                            onChange={(e) => setName(e.target.value)} value={name}
+                                        /></div>
+
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Address</label>
+                                        <input
+                                            className="input--style-5"
+                                            type="text"
+                                            name="address"
+                                            onChange={(e) => setAddress(e.target.value)} value={address}
+                                        />
+                                    </div>
+
+
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Start Date</label>
                                         <input
                                             type="date"
                                             id="p_startDate"
                                             className="form-control"
                                             name="startDate"
                                             placeholder="Poll startDate"
-                                            onChange={(e) => handleOnChange(e)}
-                                            // ref={register({ required: true })}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
+                                            onChange={(e) => setStartDate(e.target.value)} value={startDate}
+                                        // ref={register({ required: true })}
+                                        /></div>
 
-                            <div className="form-row">
-                                <div className="name" htmlFor='p_startTime'>Start Time</div>
-                                <div className="value">
-                                    <div className="input-group">
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Start Time</label>
                                         <input type="time"
                                             id='p_startTime'
                                             name="startTime"
                                             className="form-control"
                                             placeholder="Poll start time"
-                                            onChange={(e) => handleOnChange(e)}
-                                            // ref={register({ required: true })}
-                                        />
-                                    </div>
-                                </div>
+                                            onChange={(e) => setStartTime(e.target.value)} value={startTime}
+                                        // ref={register({ required: true })}
+                                        /></div>
+
+
+                                    <button className="btn btn--radius-2 btn--red" type="submit" onClick={addEvent}>Save</button>
+
+                                </form>
                             </div>
-                            <div>
-                                <button className="btn btn--radius-2 btn--red" type="submit">Register</button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
+                    <div class="col-8 align-self-start">
+                        <div className="card">
+                            <div className="card-body">
+                                {event.length > 0 && 
+                                    <div>
+
+                                        <View events={event} />
+
+                                    </div>
+            
+         }
+                                </div>
+
+                       </div>
+                        </div>
+
+
+                    </div>
+
+
                 </div>
             </div>
-        </div>
-    );
+            );
 }
 
-export default Create;
+            export default Create;

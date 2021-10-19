@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import Home from './Home/Home';
+// import Home from './Home/Home';
 import { render } from 'react-dom';
 import AppLoading from './Spinners/AppLoader';
 import reportWebVitals from './reportWebVitals';
 import { Switch, Redirect, useLocation } from 'react-router';
+import Create from './Event/Create';
 // import { useDispatch } from 'react-redux';
 // ReactDOM.render(
 //   <React.StrictMode>
@@ -19,7 +20,7 @@ import { BrowserRouter, Route } from 'react-router-dom'
 
 
 // const Home = React.lazy(() => import('../Home/Home'));
-const createEvent = React.lazy(() => import('./Event/Create'));
+// const createEvent = React.lazy(() => import('./Event/Create'));
 
 const AnRoute = () => {
 
@@ -34,8 +35,8 @@ const AnRoute = () => {
 
         <BrowserRouter>
             <Switch>
-                <Route exact path="/" exact component={Home} />
-                <Route exact path="/event/create" exact component={createEvent} />
+                <Route exact path="/" exact component={Create} />
+                {/* <Route exact path="/event/create" exact component={createEvent} /> */}
             </Switch>
         </BrowserRouter>
         </React.Suspense>
