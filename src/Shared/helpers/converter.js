@@ -1,4 +1,4 @@
-import moment from 'moment';
+// import moment from 'moment';
 
 export const formatter = {
   toMoney: (input) => {
@@ -13,8 +13,8 @@ export const formatter = {
       })
       .replace("NGN", "")
   },
-  toDate: (date) => moment(date).format('DD-MMM-YYYY'),
-  toTime: (time) => moment(time, ["HH.mm"]).format("hh:mm a"),
+  // toDate: (date) => moment(date).format('DD-MMM-YYYY'),
+  // toTime: (time) => moment(time, ["HH.mm"]).format("hh:mm a"),
   addTimeToDate: (date, time) => {
     if ((!time) || (!date)) {
       return;

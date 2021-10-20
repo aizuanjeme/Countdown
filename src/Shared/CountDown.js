@@ -3,7 +3,7 @@ import Countdown from 'react-countdown';
 import { formatter } from './helpers/converter';
 
 // Random component
-const Completionist = () => <span className="text-danger">Poll has Ended</span>;
+const Completionist = () => <span className="text-danger">Event has Started</span>;
 
 const CountDown = ({ date, time }) => {
 

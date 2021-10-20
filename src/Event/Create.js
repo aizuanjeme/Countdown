@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View } from "../View/View";
+import CountDown from "../Shared/CountDown";
 // import { useForm } from 'react-hook-form'
 import './event.css';
 // import './events.css';
@@ -49,7 +49,7 @@ const Create = () => {
             <div className="container">
                 <div class="row">
                     <h2 className="title">Event Registration Form</h2>
-                    <div class="col-4 align-self-center">
+                    <div class="col-lg-4 col-md-5 col-12 align-self-center">
                         <div className="card mr-4">
 
                             <div className="card-body">
@@ -104,29 +104,50 @@ const Create = () => {
                             </div>
                         </div>
                     </div>
-                    <div class="col-8 align-self-start">
+                    <div class="col-lg-8 col-md-6 col-12 align-self-start">
                         <div className="card">
                             <div className="card-body">
-                                {event.length > 0 && 
-                                    <div>
+                                {event && event.length > 0 && event.map((event) =>
+                                <div className="card">
+                                <div className="card-body">
+                                    <h4>{event.name}</h4>
+                                    <span>{event.address}</span><br />
+                                    <span>{event.startDate} &nbsp; {event.startTime}</span>
+                                    {/* <div>
+                                        <CountDown
+                                            time={event.startTime}
+                                            date={event.startDate}
+                                        />
+                                    </div> */}
+                                </div> 
+                                </div> 
+                                
+                                )
+                                    // <div>
 
-                                        <View events={event} />
+                                    //     <View events={event} />
 
-                                    </div>
+                                    // </div>
+
+                                     
             
          }
+
+
+
+                                   
                                 </div>
 
-                       </div>
                         </div>
-
-
                     </div>
 
 
                 </div>
+
+
             </div>
-            );
+        </div>
+    );
 }
 
-            export default Create;
+export default Create;
