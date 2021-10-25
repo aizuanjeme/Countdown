@@ -42,6 +42,11 @@ const Create = (props) => {
         setEvent(filteredEvent);
     }
 
+    const isBegin = (event) => {
+        const hasStarted = (new Date(` ${event.startDate} ${event.startTime}`).getTime()) > new Date();
+        return hasStarted;
+    }
+
     useEffect(() => {
         const json = JSON.stringify(event);
         localStorage.setItem("event", json);
@@ -141,18 +146,22 @@ const Create = (props) => {
                                                 </span>
                                             </div>
                                             <div className="col-3">
-                                                <i class="fas fa-trash-alt text-danger" onClick={()=>deleteEvent(event.name)}
-                                                title="delete"></i>
+                                                <i class="fas fa-trash-alt text-danger" onClick={() => deleteEvent(event.name)}
+                                                    title="delete"></i>
                                             </div>
                                         </div>
-                                        <div>
+                                        {isBegin(event) && <div>
                                             <Counter
                                                 startDate={event.startDate}
                                                 startTime={event.startTime}
                                             />
-                                        </div>
+                                        </div>}
                                     </div>
                                 ))}
+
+                            {
+                                event?.length === 0 && <div className="row"><strong className="mx-auto">No Event Found</strong></div>
+                            }
                         </div>
                     </div>
                 </div>

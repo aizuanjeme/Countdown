@@ -1,5 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 
+
+const Completionist = () => <span className="text-danger">It's time for your event</span>;
+
 const Counter = (props) => {
   const [timerDays, setTimerDays] = useState("00");
   const [timerHours, setTimerHours] = useState("00");
