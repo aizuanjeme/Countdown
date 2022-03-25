@@ -774,3 +774,8 @@
     }
   }
   
+  .btn-primary{
+    background: palevioletred;
+    /* float: right; */
+    flex-direction: right;
+  }
